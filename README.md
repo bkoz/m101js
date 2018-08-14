@@ -45,4 +45,23 @@ Element
 and - Need to specify multiple criteria on the same field.
 regex - find({awards.text:{$regex: /^Won\s.*/}}) - Returns entries that begin with the word "Won" followed by a space and any number of chars after that.
 Arrays - 
+$all - All values must appear in the array
+$size - Match based on the length of the array
+$elemMatch - All criteria within a single element of the array
+db.coll.find({ elemMatch {country: "USA", revenue: { $lt: 10}}});
 
+Updating docs
+updateOne({filter:value}, $set {new-field:value});
+$push $each - add an element to an existing array
+$slice keep a max # of elements
+$position - needed to push to the front of the array
+
+updateMany - matches all docs. Useful for cleanup and deleting fields.
+updateMany({$unset: {field:""}}); - remove fields
+find.({field:null}).count() - find # of docs that don't contain a field
+
+updateAll
+
+upserts - if no doc is found then update or insert a doc
+updateOne({filter:value},{$set: field},{upsert:true});
+replaceOne - 
