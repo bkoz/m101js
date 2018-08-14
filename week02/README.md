@@ -7,6 +7,18 @@ Which of the choices below is the title of a movie from the year 2013 that is ra
 
 NOTE: There is a dump of the video database included in the handouts for the "Creating Documents" lesson. Use that data set to answer this question.
 
+Restore 
+
+```
+$ cd creating_documents
+$ mongorestore dump
+$ use video
+```
+
+```
+db.movieDetails.find( {year:2013,rated:"PG-13","awards.wins":{ $eq:0 } } ).pretty();
+```
+
 ### hw2-2
 
 Using the video.movieDetails collection, which of the queries below would produce output documents that resemble the following. Check all that apply.
