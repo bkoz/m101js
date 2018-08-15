@@ -123,15 +123,12 @@ Using the video.movieDetails collection, how many movies list "Sweden" second in
 
 NOTE: There is a dump of the video database included in the handouts for the "Creating Documents" lesson. Use that data set to answer this question.
 
-Finds all docs with Sweden in any array position:
 ```
-db.movieDetails.find({countries:"Sweden"}).count();
+> db.movieDetails.find({"countries.1":"Sweden"}).count();
+6
+>
 ```
 
-Not working
-```
-db.movieDetails.find({ elemMatch {countries: "Sweden", {$eq:2}}}).count();
-```
 ### hw2-4
 
 How many documents in our video.movieDetails collection list just the following two genres: "Comedy" and "Crime" with "Comedy" listed first.
