@@ -123,11 +123,26 @@ Using the video.movieDetails collection, how many movies list "Sweden" second in
 
 NOTE: There is a dump of the video database included in the handouts for the "Creating Documents" lesson. Use that data set to answer this question.
 
+Finds all docs with Sweden in any array position:
+```
+db.movieDetails.find({countries:"Sweden"}).count();
+```
+
+Not working
+```
+db.movieDetails.find({ elemMatch {countries: "Sweden", {$eq:2}}}).count();
+```
 ### hw2-4
 
 How many documents in our video.movieDetails collection list just the following two genres: "Comedy" and "Crime" with "Comedy" listed first.
 
 NOTE: There is a dump of the video database included in the handouts for the "Creating Documents" lesson. Use that data set to answer this question.
+
+```
+> db.movieDetails.find( { genres: ["Comedy", "Crime"] } ).count()
+20
+>
+```
 
 ### hw2-5
 
@@ -135,6 +150,18 @@ As a follow up to the previous question, how many documents in the video.movieDe
 
 NOTE: There is a dump of the video database included in the handouts for the "Creating Documents" lesson. Use that data set to answer this question.
 
+Could it be just adding the $all operator?
+```
+> db.movieDetails.find( { genres: { $all: ["Comedy", "Crime"] } } ).count()
+56
+> 
+```
+
 ### hw2-6
 
 Suppose you wish to update the value of the "plot" field for one document in our "movieDetails" collection to correct a typo. Which of the following update operators and modifiers would you need to use to do this?
+
+???
+```
+updateOne({filter:value},{$set: plot});
+```
