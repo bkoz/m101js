@@ -158,9 +158,18 @@ Could it be just adding the $all operator?
 
 Suppose you wish to update the value of the "plot" field for one document in our "movieDetails" collection to correct a typo. Which of the following update operators and modifiers would you need to use to do this?
 
-???
+Looks like ```$set``` should do it.
+
 ```
-updateOne({filter:value},{$set: plot});
+> db.names.insert({first:"Bob",last:"Kozdemba",nick:"Koz"})
+WriteResult({ "nInserted" : 1 })
+> db.names.find()
+{ "_id" : ObjectId("5b756e5399f193a64b7b88bc"), "first" : "Bob", "last" : "Kozdemba", "nick" : "Koz" }
+> db.names.updateMany({first:"Bob"},{$set:{nick:"BK"}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.names.find()
+{ "_id" : ObjectId("5b756e5399f193a64b7b88bc"), "first" : "Bob", "last" : "Kozdemba", "nick" : "BK" }
+> 
 ```
 
 ### Challenge problems
