@@ -203,6 +203,74 @@ What query would we use in the Mongo shell to return all movies in the video.mov
 
 HINT: For this question we are looking for the simplest query that will work. This problem has a very straightforward solution, but you will need to extrapolate a little from some of the information presented in the "Reading Documents" lesson.
 
+Inserted the following:
+```
+use video;
+db.oscars.insertOne({name: "movie01", "awards" : {
+    "oscars" : [
+        {"award": "bestAnimatedFeature", "result": "won"},
+        {"award": "bestMusic", "result": "won"},
+        {"award": "bestSoundEditing", "result": "nominated"},
+        {"award": "bestScreenplay", "result": "nominated"}
+    ],
+    "wins" : 56,
+    "nominations" : 86,
+    "text" : "Won 2 Oscars. Another 56 wins and 86 nominations."
+} } );
+db.oscars.insertOne({name: "movie02", "awards" : {
+    "oscars" : [
+        {"award": "bestAnimatedFeature", "result": "won"},
+        {"award": "bestMusic", "result": "won"},
+        {"award": "bestSoundEditing", "result": "nominated"},
+        {"award": "bestScreenplay", "result": "nominated"}
+    ],
+    "wins" : 56,
+    "nominations" : 86,
+    "text" : "Won 2 Oscars. Another 56 wins and 86 nominations."
+} } );
+db.oscars.insertOne({name: "movie03", "awards" : {
+    "oscars" : [
+        {"award": "bestAnimatedFeature", "result": "nominated"},
+        {"award": "bestMusic", "result": "nominated"},
+        {"award": "bestPicture", "result": "won"},
+        {"award": "bestSoundEditing", "result": "nominated"},
+        {"award": "bestScreenplay", "result": "nominated"}
+    ],
+    "wins" : 56,
+    "nominations" : 86,
+    "text" : "Won 1 Oscars. Another 56 wins and 86 nominations."
+} } );
+db.oscars.insertOne({name: "movie04", "awards" : {
+    "oscars" : [
+        {"award": "bestAnimatedFeature", "result": "nominated"},
+        {"award": "bestMusic", "result": "nominated"},
+        {"award": "bestPicture", "result": "won"},
+        {"award": "bestSoundEditing", "result": "won"},
+        {"award": "bestScreenplay", "result": "nominated"}
+    ],
+    "wins" : 56,
+    "nominations" : 86,
+    "text" : "Won 2 Oscars. Another 56 wins and 86 nominations."
+} } );
+db.oscars.insertOne({name: "movie05", "awards" : {
+    "oscars" : [
+        {"award": "bestAnimatedFeature", "result": "nominated"},
+        {"award": "bestMusic", "result": "nominated"},
+        {"award": "bestPicture", "result": "nominated"},
+        {"award": "bestSoundEditing", "result": "nominated"},
+        {"award": "bestScreenplay", "result": "won"}
+    ],
+    "wins" : 56,
+    "nominations" : 86,
+    "text" : "Won 1 Oscars. Another 56 wins and 86 nominations."
+} } );
+```
+A start
+```
+db.oscars.find({"awards.oscars":[{ $all: {"award": "bestPicture","result": "won"}}]}).count()
+db.oscars.find({"awards":{"oscars":{$all:[{"award":"bestPicture","result":"won"}]}}}).count()
+```
+
 #### 2
 
 Write an update command that will remove the "tomato.consensus" field for all documents matching the following criteria:
@@ -213,3 +281,8 @@ The tomato.consensus field is null
 How many documents required an update to eliminate a "tomato.consensus" field?
 
 NOTE: There is a dump of the video database included in the handouts for the "Creating Documents" lesson. Use that data set to answer this question.
+
+A start
+```
+> db.movieDetails.find({"imdb.votes": {$eq: 86687}, year: {$lte: 1982}}).pretty().count()
+```
